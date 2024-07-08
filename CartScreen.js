@@ -24,29 +24,33 @@ const CartScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('./assets/Logo.png')} style={styles.logo} />
-        <TouchableOpacity>
-          <Image source={require('./assets/Search.png')} style={styles.headerIcon} />
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Image source={require('./assets/Menu.png')} style={styles.headerIcon} />
         </TouchableOpacity>
+        <Image source={require('./assets/Logo.png')} style={styles.logo} />
+        <View style={styles.headerRight}>
+          <TouchableOpacity>
+            <Image source={require('./assets/Search.png')} style={styles.headerIcon} />
+          </TouchableOpacity>
+        </View>
       </View>
       <Text style={styles.title}>CHECKOUT</Text>
       <FlatList
         data={cart}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.productContainer}>
-            <Image source={item.image} style={styles.productImage} />
+            <Image source={{ uri: item.image }} style={styles.productImage} />
             <View style={styles.productDetails}>
-              <Text style={styles.productName}>{item.name}</Text>
+              <Text style={styles.productName}>{item.title}</Text>
               <Text style={styles.productDescription}>{item.description}</Text>
               <Text style={styles.productPrice}>${item.price}</Text>
+              <TouchableOpacity onPress={() => removeFromCart(item)} style={styles.removeButton}>
+                <Image source={require('./assets/remove.png')} style={styles.removeIcon} />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item)}>
-              <Image source={require('./assets/remove.png')} style={styles.removeIcon} />
-            </TouchableOpacity>
           </View>
         )}
-        contentContainerStyle={styles.productList}
       />
     </View>
   );
@@ -55,45 +59,47 @@ const CartScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#fff',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingTop: 40,
+    paddingBottom: 10,
+  },
+  headerRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  headerIcon: {
+    width: 24,
+    height: 24,
+    marginHorizontal: 8,
   },
   logo: {
     width: 100,
     height: 24,
     resizeMode: 'contain',
   },
-  headerIcon: {
-    width: 24,
-    height: 24,
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  productList: {
-    paddingBottom: 100,
+    marginHorizontal: 16,
+    marginVertical: 16,
   },
   productContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-    backgroundColor: '#f9f9f9',
     padding: 16,
-    borderRadius: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
   productImage: {
     width: 100,
-    height: 150,
-    resizeMode: 'contain',
+    height: 100,
+    resizeMode: 'cover',
+    borderRadius: 8,
   },
   productDetails: {
     flex: 1,
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
   productName: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   productDescription: {
     fontSize: 14,
@@ -113,9 +119,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: 'orange',
+    marginBottom: 8,
   },
   removeButton: {
-    marginLeft: 16,
+    position: 'absolute',
+    top: 16,
+    right: 16,
   },
   removeIcon: {
     width: 24,

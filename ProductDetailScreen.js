@@ -39,18 +39,39 @@ const ProductDetailScreen = ({ route, navigation }) => {
           We work with monitoring programmes to ensure compliance with safety, health, and quality standards for our products.
         </Text>
         <View style={styles.iconRow}>
-          <Text style={styles.iconText}>Do not use bleach</Text>
-          <Text style={styles.iconText}>Do not tumble dry</Text>
-          <Text style={styles.iconText}>Dry clean with tetrachloroethylene</Text>
-          <Text style={styles.iconText}>Iron at a maximum of 110°C/230°F</Text>
+          <View style={styles.iconContainer}>
+            <Image source={require('./assets/Do Not Bleach.png')} style={styles.icon} />
+            <Text style={styles.iconText}>Do not use bleach</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('./assets/Do Not Tumble Dry.png')} style={styles.icon} />
+            <Text style={styles.iconText}>Do not tumble dry</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('./assets/Do Not Wash.png')} style={styles.icon} />
+            <Text style={styles.iconText}>Dry clean with tetrachloroethylene</Text>
+          </View>
+          <View style={styles.iconContainer}>
+            <Image source={require('./assets/Iron Low Temperature.png')} style={styles.icon} />
+            <Text style={styles.iconText}>Iron at a maximum of 110°C/230°F</Text>
+          </View>
         </View>
         <Text style={styles.sectionTitle}>SHIPPING</Text>
-        <Text style={styles.sectionContent}>Free Flat Rate Shipping</Text>
+        <View style={styles.iconContainer}>
+          <Image source={require('./assets/Shipping.png')} style={styles.icon} />
+          <Text style={styles.sectionContent}>Free Flat Rate Shipping</Text>
+        </View>
         <Text style={styles.sectionContent}>Estimated to be delivered on 09/11/2021 - 12/11/2021.</Text>
       </View>
-      <TouchableOpacity style={styles.addToCartButton} onPress={addToCart}>
-        <Text style={styles.addToCartText}>ADD TO BASKET</Text>
-      </TouchableOpacity>
+      <View style={styles.addToCartContainer}>
+        <TouchableOpacity style={styles.addToCartButton} onPress={addToCart}>
+          <Image source={require('./assets/Plus.png')} style={styles.addToCartIcon} />
+          <Text style={styles.addToCartText}>ADD TO BASKET</Text>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Image source={require('./assets/Heart.png')} style={styles.heartIcon} />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -118,24 +139,46 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   iconRow: {
-    flexDirection: 'column',
     marginBottom: 16,
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
   },
   iconText: {
     fontSize: 16,
     color: '#888',
-    marginBottom: 4,
   },
-  addToCartButton: {
+  addToCartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#000',
     padding: 16,
+  },
+  addToCartButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  addToCartIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
   },
   addToCartText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  heartIcon: {
+    width: 24,
+    height: 24,
   },
 });
 

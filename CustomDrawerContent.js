@@ -6,24 +6,24 @@ const CustomDrawerContent = (props) => {
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
-        <Text style={styles.title}>ERIC ATSU</Text>
+        <Text style={styles.title}>Kekeli Cann-Tamakloe</Text>
         <View style={styles.separator} />
-        <TouchableOpacity onPress={() => props.navigation.navigate('HomeScreen')}>
+        <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
           <Text style={styles.drawerItem}>Store</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { /* Navigate to Locations */ }}>
+        <TouchableOpacity onPress={() => {  }}>
           <Text style={styles.drawerItem}>Locations</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { /* Navigate to Blog */ }}>
+        <TouchableOpacity onPress={() => {}}>
           <Text style={styles.drawerItem}>Blog</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { /* Navigate to Jewelry */ }}>
+        <TouchableOpacity onPress={() => {  }}>
           <Text style={styles.drawerItem}>Jewelry</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { /* Navigate to Electronics */ }}>
+        <TouchableOpacity onPress={() => {  }}>
           <Text style={styles.drawerItem}>Electronics</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { /* Navigate to Clothing */ }}>
+        <TouchableOpacity onPress={() => {  }}>
           <Text style={styles.drawerItem}>Clothing</Text>
         </TouchableOpacity>
       </View>

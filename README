@@ -1,0 +1,78 @@
+Here's a brief README explaining the design choices, implementation of data storage, and including screenshots of the app:
+
+## Open Fashion App
+
+### Overview
+
+The Open Fashion App is a React Native application built using Expo. It features a HomeScreen that displays a list of products fetched from an external API, a CartScreen for managing selected items, and a ProductDetailScreen to view detailed information about a product. The app also includes a navigation drawer accessible through a swipe gesture or by clicking the menu button.
+
+### Design Choices
+
+- **Navigation**: The app uses a combination of `react-navigation` stack and drawer navigators. This allows for a smooth navigation experience between different screens (Home, Cart, Product Detail) and a drawer menu for additional options.
+- **UI Components**: The UI is designed to be clean and intuitive, with a focus on usability. Key components include product lists, detailed product views, and a cart interface.
+- **External API**: Data for products is fetched from the [FakeStoreAPI](https://fakestoreapi.com/), providing a realistic dataset for the app.
+- **Icons and Images**: Custom icons and images are used throughout the app to enhance the visual appeal and provide clear indicators for actions (e.g., adding to cart, navigation icons).
+
+### Implementation Details
+
+- **HomeScreen**: Fetches product data from the external API using `axios` and displays it in a grid format. Each product has an "Add to Cart" button that stores the product in local storage.
+- **ProductDetailScreen**: Displays detailed information about a selected product, including images, descriptions, and additional details. Icons are used to represent different product attributes and actions.
+- **CartScreen**: Shows the list of products added to the cart, with the ability to remove items. The cart data is persisted using `AsyncStorage`.
+- **Data Storage**: `AsyncStorage` is used to store cart data locally on the device. This allows the app to maintain the cart state across sessions.
+
+### Screenshots
+
+![HomeScreen](/homescreen.png)
+![ProductDetailScreen](/ProductDetailScreen.jpg)
+![CartScreen](/MenuList.jpg)
+![CartScreen](/cartscreen.jpg)
+
+### Getting Started
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/your-repo/open-fashion-app.git
+   cd open-fashion-app
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the app:
+   ```bash
+   expo start
+   ```
+
+### Folder Structure
+
+- `assets/`: Contains all image assets used in the app.
+- `components/`: Contains React component files.
+- `App.js`: Entry point for the app, sets up navigation.
+- `HomeScreen.js`: Component for displaying the list of products.
+- `ProductDetailScreen.js`: Component for displaying detailed information about a product.
+- `CartScreen.js`: Component for managing the cart.
+- `CustomDrawerContent.js`: Component for custom drawer content.
+
+### Dependencies
+
+- `react-native`: Core library for building the app.
+- `expo`: Expo framework for React Native apps.
+- `axios`: For fetching data from the external API.
+- `@react-navigation/native`: Navigation library.
+- `@react-navigation/stack`: Stack navigator for navigation.
+- `@react-navigation/drawer`: Drawer navigator for navigation.
+- `@react-native-async-storage/async-storage`: For local storage of cart data.
+
+### Conclusion
+
+The Open Fashion App provides a seamless shopping experience with intuitive navigation and a clean UI. It demonstrates effective use of React Native and Expo features, along with best practices for state management and data persistence.
+
+### Authors
+
+- Cann-Tamakloe Kekeli (11074191)
+
+Feel free to customize this README further based on your specific project details and preferences.
