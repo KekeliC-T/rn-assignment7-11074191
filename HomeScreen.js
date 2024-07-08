@@ -1,27 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const products = [
-  { id: '1', name: 'Office Wear', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress1.png') },
-  { id: '2', name: 'Black', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress2.png') },
-  { id: '3', name: 'Church Wear', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress3.png') },
-  { id: '4', name: 'Lamerei', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress4.png') },
-  { id: '5', name: '21WN', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress5.png') },
-  { id: '6', name: 'Lopo', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress6.png') },
-  { id: '7', name: 'lame', description: 'reversible angora cardigan', price: 120, image: require('./assets/dress7.png') },
-];
+import axios from 'axios';
 
 const HomeScreen = ({ navigation }) => {
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('https://fakestoreapi.com/products');
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
     const loadCart = async () => {
       const cartData = await AsyncStorage.getItem('cart');
       if (cartData) {
         setCart(JSON.parse(cartData));
       }
     };
+
+    fetchProducts();
     loadCart();
   }, []);
 
@@ -34,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Image source={require('./assets/Menu.png')} style={styles.headerIcon} />
         </TouchableOpacity>
         <Image source={require('./assets/Logo.png')} style={styles.logo} />
@@ -55,14 +58,16 @@ const HomeScreen = ({ navigation }) => {
           <Image source={require('./assets/Filter.png')} style={styles.subHeaderIcon} />
         </TouchableOpacity>
       </View>
-      <Text style={styles.title}>OUR STORE</Text>
+      <Text style={styles.title}>OUR STORY</Text>
       <FlatList
         data={products}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.productContainer}>
-            <Image source={item.image} style={styles.productImage} />
-            <Text style={styles.productName}>{item.name}</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('ProductDetail', { product: item })}>
+              <Image source={{ uri: item.image }} style={styles.productImage} />
+            </TouchableOpacity>
+            <Text style={styles.productName}>{item.title}</Text>
             <Text style={styles.productDescription}>{item.description}</Text>
             <Text style={styles.productPrice}>${item.price}</Text>
             <TouchableOpacity style={styles.addButton} onPress={() => addToCart(item)}>
